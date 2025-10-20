@@ -45,7 +45,7 @@ public class Graph {
     }
 
     public boolean canAddEdge(int u, int v){
-        return (maxDegree == 0 |(getDegree(u)<maxDegree&&(getDegree(v)<maxDegree)));
+        return (maxDegree == 0 |(getDegree(u)<maxDegree&&(getDegree(v)<maxDegree))) && !adjacencies.get(u).contains(v);
     }
     /*
     add an Edge between u and v
@@ -90,6 +90,32 @@ public class Graph {
         Set<Integer> visited = new HashSet<>();
         visited.add(vertex);
         return BFS(vert, visited,0);
+    }
+
+    public boolean connected(){
+        Set<Integer> vert = new HashSet<>();
+        vert.add(0);
+        Set<Integer> visited = new HashSet<>();
+        visited.add(0);
+        return connected(vert, visited,0);
+
+    }
+
+    private boolean connected(Set<Integer> frontier, Set<Integer> visited, int distance){
+        Set<Integer> newFrontier = new HashSet<>();
+        visited.addAll(frontier);
+        for (int v : frontier) {
+            newFrontier.addAll(adjacencies.get(v));
+        }
+        newFrontier.removeAll(visited);
+        if(!newFrontier.isEmpty()){
+
+            return connected(newFrontier,visited,distance+1);
+        }
+        else{
+            return visited.size()==adjacencies.size();
+        }
+
     }
 
     private int BFS( Set<Integer> frontier, Set<Integer> visited, int distance){
