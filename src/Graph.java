@@ -36,6 +36,17 @@ public class Graph {
         this.maxDegree = maxDegree;
     }
 
+    protected Graph(List<Set<Integer>> adjacencies){
+        this.adjacencies = new ArrayList<>(adjacencies.size());
+        for (int i = 0; i < adjacencies.size(); i++) {
+            this.adjacencies.add(new HashSet<>(adjacencies.get(i)));
+        }
+    }
+
+    public Graph clone(){
+        return new Graph(adjacencies);
+    }
+
     public List<Set<Integer>> getAdjacencies(){
         return adjacencies;
     }
@@ -67,6 +78,7 @@ public class Graph {
      */
     public void removeEdge(int u, int v) {
         adjacencies.get(u).remove(v);
+        adjacencies.get(v).remove(u);
     }
 
     public int addVertex(){

@@ -2,12 +2,10 @@
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
     public static void main(String[] args) {
-        //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-        // to see how IntelliJ IDEA suggests fixing it.
+        BipartiteGraph graph = BipartiteGraph.construct(20,100,10,2);
+        MetaHeuristics heuristics = new MetaHeuristics();
+        heuristics.BipartiteAnnealingMinimizeDiameter( graph,50000,50000000,.999,10);
         GraphReader reader = new GraphReader();
-        Graph graph = reader.initializeGraph("graph_31057.lst");
-        int dia = graph.getDiameter();
-        System.out.println(dia);
         reader.storeGraph(graph);
     }
 }
